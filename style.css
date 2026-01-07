@@ -1,0 +1,116 @@
+
+
+
+:root {
+    --primary: #8e44ad;
+    --secondary: #2bc0d1;
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --bg: #0d0d1f;
+    --text: #ffffff;
+}
+
+body {
+    margin: 0; background: var(--bg);
+    height: 100vh; display: flex; justify-content: center; align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    color: var(--text); overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+body.light-mode {
+    --bg: #f0f2f5; 
+    --glass: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0,0,0,0.1); 
+    --text: #1a1a1a;
+}
+
+.orbit-container {
+    position: relative; display: flex; justify-content: center; align-items: center;
+    width: 90vw; max-width: 550px; height: 550px;
+}
+
+.main-card {
+    background: var(--glass); backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); padding: 30px; border-radius: 30px;
+    width: 360px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    z-index: 10; position: relative;
+}
+
+.main-card.wide { width: 100%; max-width: 450px; }
+
+h1, h2 { margin-bottom: 20px; font-weight: 300; }
+
+input, textarea {
+    width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 15px;
+    border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); 
+    color: var(--text); text-align: right; box-sizing: border-box;
+}
+
+textarea { height: 100px; resize: none; }
+
+.btn-primary {
+    width: 100%; padding: 15px; border: none; border-radius: 30px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white; font-size: 1.1rem; font-weight: bold; cursor: pointer;
+    transition: 0.3s; margin-top: 10px;
+}
+
+.btn-primary:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+.btn-secondary {
+    background: none; border: 1px solid var(--secondary);
+    color: var(--secondary); width: 100%; padding: 10px; 
+    border-radius: 30px; cursor: pointer; margin-top: 10px;
+}
+
+/* הגדרות רשימת המתכונים עם הסתרת פס הגלילה */
+.recipes-grid {
+    max-height: 250px; 
+    overflow-y: auto; 
+    margin: 15px 0;
+    padding-left: 5px;
+    /* הסתרת פס הגלילה בדפדפנים שונים */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* הסתרת פס הגלילה עבור Chrome, Safari ו-Opera */
+.recipes-grid::-webkit-scrollbar {
+    display: none; 
+}
+
+.recipe-item-row {
+    background: rgba(255,255,255,0.05); padding: 12px; border-radius: 15px;
+    margin-bottom: 8px; display: flex; gap: 10px; align-items: center;
+    cursor: pointer; border: 1px solid transparent; transition: 0.2s;
+}
+
+.recipe-item-row:hover { border-color: var(--secondary); background: rgba(255,255,255,0.1); }
+
+.controls-row { display: flex; gap: 8px; margin: 15px 0; flex-wrap: wrap; }
+.btn-ctrl { flex: 1; min-width: 80px; padding: 10px; border-radius: 15px; border: none; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 0.9rem; }
+.btn-ctrl:active { transform: scale(0.95); }
+
+.settings-trigger { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; }
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); 
+    display: none; justify-content: center; align-items: center; z-index: 1000;
+}
+.modal-overlay.active { display: flex; }
+.setting-row { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; width: 100%; }
+
+.screen { display: none; width: 100%; justify-content: center; }
+.screen.active { display: flex; animation: fadeIn 0.4s ease-out; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.toast-message {
+    position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+    background: var(--secondary); color: white; padding: 12px 25px; 
+    border-radius: 50px; font-weight: bold; transition: 0.5s; z-index: 9999;
+}
+.toast-message.show { top: 30px; }
+
+.error-field::placeholder { color: #ff4757; }

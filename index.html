@@ -1,0 +1,111 @@
+
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Chef Premium</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="toast" class="toast-message"></div>
+
+    <main id="app">
+        <section id="login-screen" class="screen active">
+            <div class="orbit-container">
+                <div class="main-card">
+                    <div class="chef-badge" style="font-size: 4rem; margin-bottom: 10px;">👨‍🍳👩‍🍳</div>
+                    <h1>כניסה למטבח</h1>
+                    <input type="text" id="login-user" placeholder="שם משתמש">
+                    <input type="password" id="login-pass" placeholder="סיסמה">
+                    <button class="btn-primary" onclick="auth.login()">בואי נבשל! ✨</button>
+                    <button class="btn-secondary" onclick="ui.navigateTo('register-screen')">אני חדשה פה! להרשמה</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="register-screen" class="screen">
+            <div class="orbit-container">
+                <div class="main-card">
+                    <h1>הרשמה</h1>
+                    <input type="text" id="reg-name" placeholder="שם מלא">
+                    <input type="email" id="reg-email" placeholder="אימייל">
+                    <input type="password" id="reg-pass" placeholder="סיסמה">
+                    <button class="btn-primary" onclick="auth.register()">צרי חשבון 🚀</button>
+                    <button class="btn-secondary" onclick="ui.navigateTo('login-screen')">חזרה לכניסה</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="recipes-screen" class="screen">
+            <div class="orbit-container">
+                <div class="main-card wide">
+                    <div class="settings-trigger" onclick="ui.toggleSettings(true)">⚙️</div>
+                    <h1>המתכונים שלי ✨</h1>
+                    <input type="text" id="recipe-search" placeholder="חפשי מתכון..." oninput="ui.filter()">
+                    <button class="btn-primary" onclick="ui.navigateTo('add-recipe-screen')">הוסיפי מתכון חדש ➕</button>
+                    <div class="recipes-grid" id="recipe-list"></div>
+                    <button class="btn-secondary" onclick="ui.navigateTo('login-screen')">🏃 יציאה</button>
+                </div>
+            </div>
+
+            <div id="settings-modal" class="modal-overlay">
+                <div class="main-card" style="width:320px">
+                    <h2>הגדרות</h2>
+                    <div class="setting-row">
+                        <span>מצב לילה/יום:</span>
+                        <button onclick="ui.setTheme()" id="theme-btn" style="cursor:pointer; background:none; border:none; font-size:1.5rem;">🌙</button>
+                    </div>
+                    <div class="setting-row">
+                        <span>השהיה בהקראה:</span>
+                        <input type="range" min="500" max="4000" id="delay-range" style="width:100px">
+                    </div>
+                    <button class="btn-primary" onclick="ui.toggleSettings(false)">סגור ✖</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="add-recipe-screen" class="screen">
+            <div class="orbit-container">
+                <div class="main-card wide">
+                    <h2>יצירת מתכון חדש 🪄</h2>
+                    <input type="text" id="new-recipe-title" placeholder="שם המתכון">
+                    <textarea id="new-recipe-ingredients" placeholder="מצרכים..."></textarea>
+                    <textarea id="new-recipe-steps" placeholder="אופן ההכנה (כל שלב בשורה חדשה)..."></textarea>
+                    <button class="btn-primary" onclick="logic.saveRecipe()">שמרי מתכון ✅</button>
+                    <button class="btn-secondary" onclick="ui.navigateTo('recipes-screen')">ביטול וחזרה</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-recipe-screen" class="screen">
+            <div class="orbit-container">
+                <div class="main-card wide">
+                    <h2 id="view-title"></h2>
+                    <div style="text-align: right; margin-bottom: 10px;">
+                        <strong style="color:var(--secondary)">מצרכים:</strong>
+                        <p id="view-ingredients"></p>
+                    </div>
+                    <div style="text-align: right;">
+                        <strong style="color:var(--secondary)">אופן ההכנה:</strong>
+                        <div id="view-steps" style="white-space: pre-wrap; margin-top: 10px;"></div>
+                    </div>
+                    
+                    <div class="controls-row">
+                        <button class="btn-ctrl stop" style="background: #ff4757;" onclick="speech.stop()">עצור 🛑</button>
+                        <button class="btn-ctrl" style="background: #e67e22; color: white;" onclick="speech.pause()">השהיה ⏸️</button>
+                        <button class="btn-ctrl" style="background: #f1c40f; color: white;" onclick="speech.resume()">המשך ▶️</button>
+                        <button class="btn-ctrl play" style="background: #2ed573;" onclick="speech.speakCurrent()">הקריאי 🔊</button>
+                    </div>
+                    
+                    <button class="btn-secondary" onclick="ui.navigateTo('recipes-screen')">חזרה לרשימה</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
